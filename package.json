@@ -1,0 +1,21 @@
+{
+  "name": "freeze",
+  "version": "1.0.0",
+  "description": "Friends' phones become a camera rig; any moment becomes a scene you can orbit.",
+  "scripts": {
+    "test": "node scripts/e2e.mjs",
+    "start": "node server/index.js",
+    "simulate": "node scripts/simulate.mjs",
+    "setup": "python3 -m venv --system-site-packages .venv && .venv/bin/pip install -q -r requirements.txt",
+    "fixtures": ".venv/bin/python scripts/make_test_scene.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "three": "^0.187.0",
+    "ws": "^8.22.2"
+  }
+}

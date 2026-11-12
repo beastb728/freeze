@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d12">
+  <title>Freeze</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="landing">
+    <div class="card">
+      <h1>Freeze</h1>
+      <p class="lede">Point a few phones at one moment. Tap once. Get a scene you can walk around.</p>
+
+      <div class="row">
+        <button class="btn primary" id="start">Start a session</button>
+        <form class="row" id="joinForm">
+          <input class="field code" id="code" placeholder="CODE" maxlength="5" size="7"
+                 autocomplete="off" autocapitalize="characters" aria-label="Session code">
+          <button class="btn">Join</button>
+        </form>
+      </div>
+      <p class="error" id="error" role="alert"></p>
+
+      <ol>
+        <li>Start a session and show the QR code to your friends. Nothing to install.</li>
+        <li>Stand in a line in seat order and aim the circle at the same thing.</li>
+        <li>The host taps Freeze. Every phone keeps the frame from the same instant.</li>
+        <li>Open the link and drag to orbit the moment.</li>
+      </ol>
+    </div>
+  </main>
+
+  <script type="module">
+    const error = document.getElementById('error');
+
+    document.getElementById('start').addEventListener('click', async (event) => {
+      event.target.disabled = true;
+      try {
+        const res = await fetch('/api/sessions', { method: 'POST' });
+        if (!res.ok) throw new Error();
+        const { id, hostKey } = await res.json();
+        localStorage.setItem(`freeze.host.${id}`, hostKey);
+        location.href = `/s/${id}`;
+      } catch {
+        error.textContent = 'Could not start a session. Is the server still running?';
+        event.target.disabled = false;
+      }
+    });
+
+    document.getElementById('joinForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const code = document.getElementById('code').value.trim().toUpperCase();
+      const res = await fetch(`/api/s/${encodeURIComponent(code)}`).catch(() => null);
+      if (res && res.ok) location.href = `/s/${code}`;
+      else error.textContent = 'No session with that code.';
+    });
+  </script>
+</body>
+</html>

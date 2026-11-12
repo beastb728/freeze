@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#07080b">
+  <title>Freeze scene</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="viewer">
+    <canvas id="view"></canvas>
+    <div class="message" id="message">Loading the scene…</div>
+
+    <div class="topbar">
+      <a class="brand" href="/">Freeze</a>
+      <span class="pill" id="info" hidden></span>
+    </div>
+
+    <span class="pill dragtip" id="dragtip" hidden>Drag to orbit</span>
+
+    <div class="bottombar" id="bar" hidden>
+      <div class="timeline" id="timeline" hidden>
+        <button class="btn small" id="play" aria-label="Play or pause time">Play</button>
+        <input type="range" id="time" min="0" max="5" step="1" value="0" aria-label="Moment in time">
+      </div>
+      <div class="tools">
+        <button class="btn small" id="share">Share</button>
+        <button class="btn small" id="record">Save video</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/viewer.js"></script>
+</body>
+</html>

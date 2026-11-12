@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#000000">
+  <title>Freeze session</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="stage">
+    <video id="cam" playsinline muted autoplay hidden></video>
+    <div class="crosshair" id="crosshair" hidden></div>
+
+    <div class="director" id="director" hidden>
+      <img class="qr" id="directorQr" alt="QR code to join this session">
+      <h2>Scan to join as a camera</h2>
+      <p class="joinurl" data-joinurl></p>
+    </div>
+
+    <div class="topbar">
+      <span class="pill code" id="codePill"></span>
+      <span class="pill" id="syncPill"><span class="dot"></span><span id="syncText">Syncing clock</span></span>
+      <span class="spacer"></span>
+      <button class="btn small" id="invite">Invite</button>
+    </div>
+
+    <div class="seat" id="seatCard" hidden>
+      <b id="seatTitle"></b>
+      <span id="seatHint"></span>
+      <div class="row">
+        <button class="btn small" id="moveLeft" aria-label="Move one place left">&larr; Move left</button>
+        <button class="btn small" id="moveRight" aria-label="Move one place right">Move right &rarr;</button>
+      </div>
+    </div>
+
+    <div class="bottombar" id="bottombar" hidden>
+      <div class="results" id="results"></div>
+      <div class="roster" id="roster"></div>
+      <div class="controls" id="hostControls" hidden>
+        <div class="segmented" role="group" aria-label="Capture mode">
+          <button data-mode="still" aria-pressed="true">Still</button>
+          <button data-mode="burst" aria-pressed="false">Time slice</button>
+        </div>
+        <button class="btn primary" id="fire">Freeze</button>
+      </div>
+      <p class="hint" id="status"></p>
+    </div>
+
+    <div class="count" id="count" hidden></div>
+    <div class="flash" id="flash"></div>
+
+    <div class="sheet" id="joinSheet">
+      <div class="card">
+        <h2 id="joinTitle">Join the session</h2>
+        <p id="joinText">Your phone becomes one of the cameras.</p>
+        <div class="stack">
+          <input class="field" id="name" placeholder="Your name" maxlength="24" autocomplete="given-name" aria-label="Your name">
+          <button class="btn primary" id="joinCamera">Join with camera</button>
+          <button class="btn" id="joinDirector">Join without a camera</button>
+        </div>
+        <p class="error" id="joinError" role="alert"></p>
+      </div>
+    </div>
+
+    <div class="sheet" id="inviteSheet" hidden>
+      <div class="card">
+        <h2>Add a camera</h2>
+        <p>Scan with a phone camera. Nothing to install.</p>
+        <img class="qr" id="inviteQr" alt="QR code to join this session">
+        <p class="joinurl" data-joinurl></p>
+        <button class="btn" id="inviteClose">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/session.js"></script>
+</body>
+</html>
